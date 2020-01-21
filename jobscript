@@ -1,0 +1,36 @@
+#!/bin/bash
+#Set job requirements
+#We are going to use only one node (-N 1), and use the express queue (-p short). And we set the time to 4 minutes (-t 4:00)
+#SBATCH -p short
+#SBATCH -N 1
+#SBATCH -t 4:00
+
+#Make sure you have logged in to your iRODS zone prior to job submission. iRODS creates a irodsA file which is subsequently used by the worker nodes.
+module load pre2019
+module load icommands
+
+#move to your home directory and current git repository which is also mounted on your scratch space and might hold the processing script
+cd $HOME/iRODS-DataProcessing-HPC-course
+
+inputdir="$TMPDIR/inputdat$SLURM_JOBID"
+outputdir="$TMPDIR/outputdat$SLURM_JOBID"
+mkdir $inputdir
+mkdir $outputdir
+
+#search for data objects with iquest
+#get these files from iRODS and store them under scratch
+iquest "%s/%s" "select COLL_NAME, DATA_NAME where META_DATA_ATTR_NAME = 'author' and META_DATA_ATTR_VALUE = 'Lewis Carroll'" | parallel iget {} $inputdir
+
+#perform the word count analysis
+cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{count[$1]++} END {for(j in count) print j, count[j]}' > $outputdir/results.dat
+
+#put results back into iRODS
+iput $outputdir/results$SLURM_JOBID.dat
+
+#add metadata provenance
+imeta add -d results$SLURM_JOBID.dat 'somekey' 'somevalue'
+imeta ls -d results$SLURM_JOBID.dat
+
+
+
+
