@@ -144,7 +144,7 @@ mkdir $outputdir
 iquest "%s/%s" "select COLL_NAME, DATA_NAME where META_DATA_ATTR_NAME = 'author' and META_DATA_ATTR_VALUE = 'Lewis Carroll'" | parallel iget {} $inputdir
 
 #perform the word count analysis
-cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{count[$1]++} END {for(j in count) print j, count[j]}' > $outputdir/results.dat
+cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{count[$1]++} END {for(j in count) print j, count[j]}' > $outputdir/results$SLURM_JOBID.dat
 
 #put results back into iRODS
 iput $outputdir/results$SLURM_JOBID.dat
