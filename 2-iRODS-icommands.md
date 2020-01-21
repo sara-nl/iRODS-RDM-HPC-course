@@ -143,9 +143,9 @@ There are many more options for `iput` which could (or could not) optimize data 
 
 #### Exercise
 
-- Upload `aliceInWonderland-DE.txt.utf-8` to your home directory in iRODS
+- Upload `alice.txt` to your home directory in iRODS
 - Create a new collection `aliceInWonderland` within your home directory
-- Move `aliceInWonderland-DE.txt.utf-8` into this new collection.
+- Move `alice.txt` into this new collection.
 
 
 ### Downloading a data object or collection with `iget`
