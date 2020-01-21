@@ -141,7 +141,7 @@ Note that his can also be done afterwards with the `ichksum` command.
 
 There are many more options for `iput` which could (or could not) optimize data transfer, *e.g.* `-b` for bulk upload to overcome network overhead, `-N` for number of threads, `-Q` for Reliable Blast UDP protocol. However, the default behaviour is already high performant in most cases.
 
-####Exercise
+#### Exercise
 
 - Upload `aliceInWonderland-DE.txt.utf-8` to your home directory in iRODS
 - Create a new collection `aliceInWonderland` within your home directory
@@ -163,7 +163,7 @@ To download a collection you have to specify the `-r` option:
 iget -r source_collection destination_folder
 ```
 
-####Exercise
+#### Exercise
 - download the data object `aliceInWonderland-DE.txt.utf-8` as `aliceRestore.txt`
 - download the collection `aliceInWonderland`
 
@@ -217,7 +217,7 @@ iput source_file --metadata "key1;val1;unit1;key2;val2;unit2"
 iput source_file --metadata "key1;val1;;key2;val2;unit2"
 ```
 
-####Exercise 
+#### Exercise 
 - add metadata to the Alice In Wonderland data object we added
 - add metadata to the `aliceInWonderland` collection
 - create a new file locally (`echo "testing metadata" > lorem.txt`), upload file and add metadata in one go
@@ -269,7 +269,7 @@ iquest "%s/%s" "select COLL_NAME, DATA_NAME where \
 META_DATA_ATTR_NAME like 'key1' and META_DATA_ATTR_VALUE = 'val1'" | xargs iget
 ```
 
-####Exercise
+#### Exercise
 - try to find the files you have added above by searching for the associated metadata you added
 - search for files with `META_DATA_ATTR_NAME` is `author` and `META_DATA_ATTR_VALUE` is `Lewis Carroll`. Do you know these files?
 
