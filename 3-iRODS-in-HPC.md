@@ -157,7 +157,7 @@ imeta ls -d results$SLURM_JOBID.dat
 
 **Exercise**
 
-Make sure the provenance metadata is added to the results file at the end of the jobscript.
+- Make sure the provenance metadata is added to the results file at the end of the jobscript.
 
 You can submit the job as follows:
 
