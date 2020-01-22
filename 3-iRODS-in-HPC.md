@@ -112,7 +112,7 @@ imeta ls -d results.dat
 
 **Exercise**
 
-What metadata items would help to keep the provenance of your results? *i.e.* if a researcher in the future (someone else or yourself) sees `results.dat`, what information would that person need to know how this dataset came to be?
+- What metadata items would help to keep the provenance of your results? *i.e.* if a researcher in the future (someone else or yourself) sees `results.dat`, what information would that person need to know how this dataset came to be?
 
 ## Aggregating all steps and creating a jobscript
 
