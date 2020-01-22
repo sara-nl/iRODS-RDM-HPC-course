@@ -111,6 +111,7 @@ imeta ls -d results.dat
 ```
 
 **Exercise**
+
 What metadata items would help to keep the provenance of your results? *i.e.* if a researcher in the future (someone else or yourself) sees `results.dat`, what information would that person need to know how this dataset came to be?
 
 ## Aggregating all steps and creating a jobscript
@@ -153,6 +154,10 @@ iput $outputdir/results$SLURM_JOBID.dat
 imeta add -d results$SLURM_JOBID.dat 'somekey' 'somevalue'
 imeta ls -d results$SLURM_JOBID.dat
 ```
+
+**Exercise**
+
+Make sure the provenance metadata is added to the results file at the end of the jobscript.
 
 You can submit the job as follows:
 
