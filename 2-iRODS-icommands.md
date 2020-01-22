@@ -56,7 +56,7 @@ mkdir ~/.irods
 cp irods_environment.json .irods/irods_environment.json
 ```
 
-Use your favourite text editor (nano or vi) to change your username.
+Use your favourite text editor (`nano` or `vi`) to change your username.
 
 Now initialize the connection:
 
