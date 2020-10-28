@@ -173,6 +173,9 @@ Note that his can also be done afterwards with the `ichksum` command.
 There are many more options for `iput` which could (or could not) optimize data transfer, *e.g.* `-b` for bulk upload to overcome network overhead and `-N` for number of threads.
 However, the default behaviour is already high performant in most cases if the iRODS server is configured correctly.
 
+You could check with `ils` what has happened. 
+What does `ils -l` or `ils -L` show? 
+
 
 #### Exercise
 
@@ -301,7 +304,7 @@ You can look up the available keys you can query for via:
 iquest attrs
 ```
 
-Note that these are a lot.
+Note that there are a lot.
 
 General `iquest` queries look like:
 
@@ -309,7 +312,7 @@ General `iquest` queries look like:
 iquest "select COLL_NAME, DATA_NAME, META_DATA_ATTR_VALUE where META_DATA_ATTR_NAME like 'key1'" 
 ```
 
-In above command we wanted to look for everything which has the metadata attribute name (metadata key) that resembles 'author' and retrieve the collection name, data object name and metadata attribute value (metadata value). 
+In above command we wanted to look for everything which has the metadata attribute name (metadata key) that resembles 'key1' and retrieve the collection name, data object name and metadata attribute value (metadata value). 
 iRODS will respond something like:
 
 ```sh

@@ -171,6 +171,8 @@ A simple jobscript looks like:
 #move to your home directory and current git repository which is also mounted on your scratch space and might hold the processing script
 cd $HOME/iRODS-RDM-HPC-course
 
+rodscoll='/yoda/home/research-rdmcourse/YOUR OUTPUT COLLECTION'
+
 inputdir="$TMPDIR/inputdat$SLURM_JOBID"
 outputdir="$TMPDIR/outputdat$SLURM_JOBID"
 mkdir $inputdir
@@ -181,14 +183,16 @@ mkdir $outputdir
 iquest "%s/%s" "select COLL_NAME, DATA_NAME where META_DATA_ATTR_NAME = 'author' and META_DATA_ATTR_VALUE = 'Lewis Carroll'" | parallel iget {} $inputdir
 
 #perform the word count analysis
-cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{for(i=1;i<=NF;i++) count[$i]++} END {for(j in count) print j, count[j]}' > $outputdir/results.dat
+resultsfile=results$SLURM_JOBID.dat
+cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{for(i=1;i<=NF;i++) count[$i]++} END {for(j in count) print j, count[j]}' > $outputdir/$resultsfile
 
 #put results back into iRODS
-iput $outputdir/results$SLURM_JOBID.dat
+iput $outputdir/$resultsfile $rodscoll
 
 #add metadata provenance
-imeta add -d results$SLURM_JOBID.dat 'somekey' 'somevalue'
-imeta ls -d results$SLURM_JOBID.dat
+#possible add a metadata annotation script call either locally via scipt file, rule file or server side via installed rules, where last is preferred but also difficult to implement.
+imeta add -d $rodscoll/$resultsfile 'somekey' 'somevalue'
+imeta ls -d $rodscoll/$resultsfile
 ```
 
 You can submit the job as follows:

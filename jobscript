@@ -8,7 +8,9 @@
 #Make sure you have logged in to your iRODS zone prior to job submission. iRODS creates a irodsA file which is subsequently used by the worker nodes.
 
 #move to your home directory and current git repository which is also mounted on your scratch space and might hold the processing script
-cd $HOME/iRODS-RDM-in-HPC-course
+cd $HOME/iRODS-RDM-HPC-course
+
+rodscoll='/yoda/home/research-rdmcourse/YOUR OUTPUT COLLECTION'
 
 inputdir="$TMPDIR/inputdat$SLURM_JOBID"
 outputdir="$TMPDIR/outputdat$SLURM_JOBID"
@@ -24,12 +26,12 @@ resultsfile=results$SLURM_JOBID.dat
 cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{for(i=1;i<=NF;i++) count[$i]++} END {for(j in count) print j, count[j]}' > $outputdir/$resultsfile
 
 #put results back into iRODS
-iput $outputdir/$resultsfile
+iput $outputdir/$resultsfile $rodscoll
 
 #add metadata provenance
 #possible add a metadata annotation script call either locally via scipt file, rule file or server side via installed rules, where last is preferred but also difficult to implement.
-imeta add -d $resultsfile 'somekey' 'somevalue'
-imeta ls -d $resultsfile
+imeta add -d $rodscoll/$resultsfile 'somekey' 'somevalue'
+imeta ls -d $rodscoll/$resultsfile
 
 
 
