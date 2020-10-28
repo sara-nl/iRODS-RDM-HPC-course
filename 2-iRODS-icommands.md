@@ -306,7 +306,7 @@ Note that these are a lot.
 General `iquest` queries look like:
 
 ```sh
-iquest "select COLL_NAME, DATA_NAME, META_DATA_ATTR_VALUE where META_DATA_ATTR_NAME like 'author'" 
+iquest "select COLL_NAME, DATA_NAME, META_DATA_ATTR_VALUE where META_DATA_ATTR_NAME like 'key1'" 
 ```
 
 In above command we wanted to look for everything which has the metadata attribute name (metadata key) that resembles 'author' and retrieve the collection name, data object name and metadata attribute value (metadata value). 
