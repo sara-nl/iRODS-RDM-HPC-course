@@ -229,8 +229,8 @@ If you really want to delete a file either use `irmtrash` after removing or `irm
 
 In iRODS a data object is not only the bitstream and the filename, but user defined metadata is part of the data object. 
 Metadata is essential to give a data object more context.
-You can add all kinds of metadata to a data object: descriptive metadata (describing what the data is about) or provenance metadata (history of the data object).
-This makes it very powerful, as metadata and data can not be out of sync which can happen in other custom solutions where it is not so integrated. 
+You can add all kinds of metadata to a data object: administrative metadata (about the management, processing of the data), descriptive metadata (about the content, author, etc) or provenance metadata (about the history of the data object).
+This makes it very powerful, as metadata and data can not be out of sync. 
 You can manually add metadata, which can also be scripted or let an iRODS rule add metadata. 
 
 In iRODS, per metadata item you can store three strings: key, value, unit. You can dismiss the unit string, but the key/value pair needs to be unique.
