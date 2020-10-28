@@ -6,11 +6,9 @@
 #SBATCH -t 4:00
 
 #Make sure you have logged in to your iRODS zone prior to job submission. iRODS creates a irodsA file which is subsequently used by the worker nodes.
-module load pre2019
-module load icommands
 
 #move to your home directory and current git repository which is also mounted on your scratch space and might hold the processing script
-cd $HOME/iRODS-RDM-HPC-course
+cd $HOME/iRODS-RDM-in-HPC-course
 
 inputdir="$TMPDIR/inputdat$SLURM_JOBID"
 outputdir="$TMPDIR/outputdat$SLURM_JOBID"
@@ -22,14 +20,16 @@ mkdir $outputdir
 iquest "%s/%s" "select COLL_NAME, DATA_NAME where META_DATA_ATTR_NAME = 'author' and META_DATA_ATTR_VALUE = 'Lewis Carroll'" | parallel iget {} $inputdir
 
 #perform the word count analysis
-cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{count[$1]++} END {for(j in count) print j, count[j]}' > $outputdir/results$SLURM_JOBID.dat
+resultsfile=results$SLURM_JOBID.dat
+cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{for(i=1;i<=NF;i++) count[$i]++} END {for(j in count) print j, count[j]}' > $outputdir/$resultsfile
 
 #put results back into iRODS
-iput $outputdir/results$SLURM_JOBID.dat
+iput $outputdir/$resultsfile
 
 #add metadata provenance
-imeta add -d results$SLURM_JOBID.dat 'somekey' 'somevalue'
-imeta ls -d results$SLURM_JOBID.dat
+#possible add a metadata annotation script call either locally via scipt file, rule file or server side via installed rules, where last is preferred but also difficult to implement.
+imeta add -d $resultsfile 'somekey' 'somevalue'
+imeta ls -d $resultsfile
 
 
 
