@@ -174,7 +174,7 @@ There are many more options for `iput` which could (or could not) optimize data 
 However, the default behaviour is already high performant in most cases if the iRODS server is configured correctly.
 
 
-####Exercise
+#### Exercise
 
 - Upload `alice.txt` to your home directory in iRODS
 - Create a new collection `aliceInWonderland` within your home directory
@@ -199,7 +199,7 @@ iget -r source_collection destination_folder
 ```
 
 
-####Exercise
+#### Exercise
 
 - download the data object `alice.txt` as `aliceRestore.txt`
 - download the collection `aliceInWonderland`
@@ -280,7 +280,7 @@ iput source_file --metadata "key1;val1;;key2;val2;unit2"
 ```
 
 
-####Exercise 
+#### Exercise 
 
 - add metadata to alice.txt
 - add metadata to the `aliceInWonderland` collection
@@ -338,7 +338,7 @@ This could be useful in concatenating commands in HPC data staging which we will
 iquest "%s/%s" "select COLL_NAME, DATA_NAME where META_DATA_ATTR_NAME like 'key1' and META_DATA_ATTR_VALUE = 'val1'" | xargs iget
 ```
 
-####Exercise
+#### Exercise
 - try to find the files you have added above by searching for the associated metadata you added
 - search for files with `META_DATA_ATTR_NAME` is `author` and `META_DATA_ATTR_VALUE` is `Lewis Carroll`. Do you know these files?
 
