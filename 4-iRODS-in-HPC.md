@@ -129,7 +129,7 @@ cat $inputdir/* | tr '[:upper:]' '[:lower:]' | awk '{for(i=1;i<=NF;i++) count[$i
 Now we will upload the files to iRODS (for now simply the home folder, however, it would be better if there is a structured directory tree.
 
 ```sh
-iput research-rdmcourse/$outputdir/results.dat
+iput $outputdir/results.dat
 ```
 
 

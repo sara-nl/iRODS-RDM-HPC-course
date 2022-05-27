@@ -45,7 +45,7 @@ Since 2020, the icommands are installed on Lisa (and Spider) system wide.
 Clone this repository to your home folder:
 
 ```sh
-git clone https://github.com/sara-nl/iRODS-RDM-HPC-course.git
+git clone https://github.com/ccacciari/iRODS-RDM-HPC-course.git
 cd iRODS-RDM-HPC-course
 ```
 
