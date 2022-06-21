@@ -141,6 +141,13 @@ ils -A
 
 to check the permissions (`-A` stands for Access Control Lists) of data objects and collections.
 
+> **_Food for brain:_**
+>
+> * If you run a command 'ils /' would you see all the collections?
+> * Can different collections be at different physical locations/storage backends?
+> * Within a collection can you have objects stored at different physical locations/storage backends?
+> * How do you know what permissions you have on a collection?
+
 
 ### Uploading a file or folder
 
@@ -183,6 +190,9 @@ What does `ils -l` or `ils -L` show?
 - Create a new collection `aliceInWonderland` within your home directory
 - Move `alice.txt` into this new collection.
 
+> **_Food for brain:_**
+>
+> * Should/can you use iput and icp commands interchangeably, when, why and why not?
 
 ### Downloading a data object or collection
 
@@ -207,6 +217,9 @@ iget -r source_collection destination_folder
 - download the data object `alice.txt` as `aliceRestore.txt`
 - download the collection `aliceInWonderland`
 
+> **_Food for brain:_**
+>
+> * With the iget command, can you put data to another remote location instead of the Lisa login node?
 
 ## Removing files and the trashbin
 
@@ -224,6 +237,11 @@ If you really want to delete a file either use `irmtrash` after removing or `irm
 
 - how would you be able find the removed file back?
 
+> **_Food for brain:_**
+>
+> * If you run the command 'ils /surfZone1', what do you see?
+> * Can you find your deleted files here?
+> * Can you see another user's deleted data as well?
 
 ## Adding metadata and querying for data
 
