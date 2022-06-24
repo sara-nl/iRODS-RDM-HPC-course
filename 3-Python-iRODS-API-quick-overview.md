@@ -15,13 +15,11 @@ http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 ## Goal
-You will learn how to interact with iRODS via the python API. In this module we will explore the API in interactive mode. The exercises you will perform here will be similar to the one already done with icommands. You will:
+You will learn how to interact with iRODS via the python API. In this module we will explore the API in interactive mode. You will:
 
 - Explore the python API to iRODS in ipython
 - Upload and download data and collections
-- Add and edit metadata
-- Set Accession control lists for data objects and collections
-- Query for data using user defined metadata
+- List metadata
 
 ## 1. Explore the python API to iRODS in ipython
 
@@ -128,47 +126,6 @@ vars(obj)
 
 **Remark**: iRODS stores times in UNIX [epoch](https://en.wikipedia.org/wiki/Unix_time) time, but the python client always returns times in UTC (2 hours behind our local time).
 
-You can also rename an iRODS data object or move it to a different collection:
-
-```py
-session.data_objects.move(obj.path, iHome + '/alice-copy.txt')
-print(coll.data_objects)
-```
-
-### 2.3 Creating metadata
-Working with metadata is not completely intuitive, you need a good understanding of python dictionaries and the iRODS python API classes *dataobject*, *collection*, *iRODSMetaData* and *iRODSMetaCollection*.
-
-We start slowly with first creating some metadata for our data. 
-Currently, our data object does not carry any user-defined metadata:
-
-```py
-iPath = iHome + '/alice-copy.txt'
-obj = session.data_objects.get(iPath)
-print(obj.metadata.items())
-```
-
-Create a key, value, unit entry for our data object:
-
-```py
-obj.metadata.add('SOURCE', 'python API training', 'version 1')
-obj.metadata.add('TYPE', 'test file')
-```
-If you now print the metadata again, you will see a cryptic list:
-
-```py
-print(obj.metadata.items())
-```
-The list contains two metadata python objects.
-To work with the metadata you need to iterate over them and extract the AVU triples:
-
-```py
-[(item.name, item.value, item.units) for item in obj.metadata.items()]
-```
-Metadata can be used to search for your own data but also for data that someone shared with you. You do not need to know the exact iRODS logical path to retrieve the file, you can search for data which is annotated accordingly. We will see that in the next section.
-
-<!--
-**Watch out:** If you do another `data_object.put` you will overwrite not only the bitstream but also all metadata. User-defined metadata will be set to empty.
--->
 
 ### 2.4 Download a data object
 We can download a data object as follows (note that we use the environment variable 'HOME' that is defined to be your Lisa homefolder):
@@ -189,48 +146,3 @@ obj = session.data_objects.get(obj.path,localpath)
 Do you know why do you get an error now?
 
 **Exercise** Calculate the MD5 checksum for the downloaded data and compare with the data object's checksum in iRODS. (hint: `import hashlib; hashlib.md5(open(<filename>, 'rb').read()).hexdigest()`
-
-### 3 Streaming data
-Streaming data is an alternative to upload large data to iRODS or to accumulate data in a data object over time. First you need to create an empty data object in iRODS before you can stream in the data.
-
-```py
-content = 'My contents!'.encode()
-obj = session.data_objects.create(iHome + '/stream.txt')
-```
-This will create a place holder for the data object with no further metadata:
-
-```py
-print("Name: ", obj.name)
-print("Owner: ", obj.owner_name)
-print("Size: ", obj.size)
-print("Checksum:", obj.checksum)
-print("Create: ", obj.create_time)
-print("Modify: ", obj.modify_time)
-print("Metadata: ", obj.metadata.items())
-```
-
-```
-vars(obj)
-```
-We can now stream in our data into that placeholder
-
-```py
-with obj.open('w') as obj_desc:
-    obj_desc.write(content)
-obj = session.data_objects.get(iHome + '/stream.txt')
-```
-
-Now we check the metadata again:
-
-```py
-print("Name: ", obj.name)
-print("Owner: ", obj.owner_name)
-print("Size: ", obj.size)
-print("Checksum:", obj.checksum)
-print("Create: ", obj.create_time)
-print("Modify: ", obj.modify_time)
-print("Metadata: ", obj.metadata.items())
-```
-```
-vars(obj)
-```
